@@ -1,5 +1,6 @@
 package com.example.techiteasybackend.controllers;
 
+import com.example.techiteasybackend.exceptions.RecordNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +11,19 @@ public class TelevisionsController {
 
     @GetMapping
     public ResponseEntity<ArrayList<String>> returnAllTvs(){
-        return ResponseEntity.ok(tvList);
+        if(!tvList.isEmpty()) {
+            return ResponseEntity.ok(tvList);
+        } else{
+            throw new RecordNotFoundException("no TVs found");
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getTvById(@PathVariable int id){
+    public ResponseEntity<String> getTvById(@PathVariable int id) throws RecordNotFoundException{
         if(id >= 0 && id < tvList.size()) {
             return ResponseEntity.ok(tvList.get(id));
         }else{
-            return ResponseEntity.badRequest().build();
+            throw new RecordNotFoundException("id: " + id+ " has not been found");
         }
     }
 
@@ -34,13 +39,17 @@ public class TelevisionsController {
             tvList.set(id, updatedTv);
             return ResponseEntity.ok(updatedTv);
         }else{
-            return ResponseEntity.badRequest().build();
+            throw new RecordNotFoundException("id "+id+" has not been found");
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTv(@PathVariable int id){
-        tvList.remove(id);
-        return ResponseEntity.ok().build();
+        if(id >= 0 && id < tvList.size()) {
+            tvList.remove(id);
+            return ResponseEntity.ok(id+" has been remove");
+        }else {
+            throw new RecordNotFoundException("id "+id+" has not been found");
+        }
     }
 }
