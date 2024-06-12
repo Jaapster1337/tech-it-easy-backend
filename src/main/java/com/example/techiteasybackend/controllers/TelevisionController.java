@@ -52,22 +52,12 @@ public class TelevisionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TelevisionOutputDto> updateTv(@PathVariable int id, @RequestBody Television television) {
-        if (id >= 0 && id < tvList.size()) {
-            tvList.set(id, updatedTv);
-            return ResponseEntity.ok(updatedTv);
-        } else {
-            throw new RecordNotFoundException("id " + id + " has not been found");
-        }
+    public ResponseEntity<TelevisionOutputDto> updateTv(@PathVariable int id, @RequestBody TelevisionInputDto television) {
+        return ResponseEntity.ok().body(tvService.updateTv(id,television));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTv(@PathVariable int id) {
-        if (id >= 0 && id < tvList.size()) {
-            tvList.remove(id);
-            return ResponseEntity.ok(id + " has been remove");
-        } else {
-            throw new RecordNotFoundException("id " + id + " has not been found");
-        }
+        return ResponseEntity.ok().body(tvService.deleteTv(id));
     }
 }
