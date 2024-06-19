@@ -27,4 +27,5 @@ public class TelevisionInputDto {
     private Integer originalStock;
     private Integer sold;
     private LocalDate sellDate;
+    public RemoteControllerInputDto remoteController;
 }

@@ -1,10 +1,14 @@
 package com.example.techiteasybackend.models;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Televisions")
+@Getter
+@Setter
 public class Television {
 
     @Id
@@ -27,6 +31,13 @@ public class Television {
     private Integer originalStock;
     private Integer sold;
     private LocalDate sellDate;
+
+    @OneToOne
+    RemoteController remoteController;
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
+    }
 
     public enum AvailableSize {
         SIZE_32(32.0),
@@ -72,139 +83,6 @@ public class Television {
         this.bluetooth = bluetooth;
         this.ambiLight = ambiLight;
         this.originalStock = originalStock;
-        this.sold = sold;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public AvailableSize getAvailableSize() {
-        return availableSize;
-    }
-
-    public void setAvailableSize(AvailableSize availableSize) {
-        this.availableSize = availableSize;
-    }
-
-    public Double getRefreshRate() {
-        return refreshRate;
-    }
-
-    public void setRefreshRate(Double refreshRate) {
-        this.refreshRate = refreshRate;
-    }
-
-    public String getScreenType() {
-        return screenType;
-    }
-
-    public void setScreenType(String screenType) {
-        this.screenType = screenType;
-    }
-
-    public String getScreenQuality() {
-        return screenQuality;
-    }
-
-    public void setScreenQuality(String screenQuality) {
-        this.screenQuality = screenQuality;
-    }
-
-    public Boolean getSmartTv() {
-        return smartTv;
-    }
-
-    public void setSmartTv(Boolean smartTv) {
-        this.smartTv = smartTv;
-    }
-
-    public Boolean getWifi() {
-        return wifi;
-    }
-
-    public void setWifi(Boolean wifi) {
-        this.wifi = wifi;
-    }
-
-    public Boolean getVoiceControl() {
-        return voiceControl;
-    }
-
-    public void setVoiceControl(Boolean voiceControl) {
-        this.voiceControl = voiceControl;
-    }
-
-    public Boolean getHdr() {
-        return hdr;
-    }
-
-    public void setHdr(Boolean hdr) {
-        this.hdr = hdr;
-    }
-
-    public Boolean getBluetooth() {
-        return bluetooth;
-    }
-
-    public void setBluetooth(Boolean bluetooth) {
-        this.bluetooth = bluetooth;
-    }
-
-    public Boolean getAmbiLight() {
-        return ambiLight;
-    }
-
-    public void setAmbiLight(Boolean ambiLight) {
-        this.ambiLight = ambiLight;
-    }
-
-    public Integer getOriginalStock() {
-        return originalStock;
-    }
-
-    public void setOriginalStock(Integer originalStock) {
-        this.originalStock = originalStock;
-    }
-
-    public Integer getSold() {
-        return sold;
-    }
-
-    public void setSold(Integer sold) {
         this.sold = sold;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.techiteasybackend.controllers;
 
+import com.example.techiteasybackend.dto.input.IdInputDto;
 import com.example.techiteasybackend.dto.input.TelevisionInputDto;
 import com.example.techiteasybackend.dto.output.TelevisionOutputDto;
 import com.example.techiteasybackend.exceptions.RecordNotFoundException;
@@ -32,7 +33,6 @@ public class TelevisionController {
         return ResponseEntity.created(uri).body(televisionOutputDto);
     }
 
-
     @GetMapping
     public ResponseEntity<List<TelevisionOutputDto>> returnAllTvs() {
         return ResponseEntity.ok().body(tvService.getAllTelevisions());
@@ -43,17 +43,16 @@ public class TelevisionController {
         return ResponseEntity.ok().body(tvService.getTvById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<TelevisionOutputDto> createTv(@Valid @RequestBody TelevisionInputDto televisionInputDto, BindingResult br) {
-        TelevisionOutputDto televisionOutputDto = tvService.createTelevision(televisionInputDto);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + televisionOutputDto.getId()).toUriString());
-        return ResponseEntity.created(uri).body(televisionOutputDto);
-
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<TelevisionOutputDto> updateTv(@PathVariable int id, @RequestBody TelevisionInputDto television) {
         return ResponseEntity.ok().body(tvService.updateTv(id,television));
+    }
+
+    @PutMapping("/televisions/{televisionId}/remotecontroller")
+    public ResponseEntity<Void> assignRcToTv(@PathVariable Long televisionId, @RequestBody IdInputDto remoteControllerId){
+        Long rcId = remoteControllerId.id;
+        tvService.assignRemoteControllerToTelevision(televisionId, rcId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

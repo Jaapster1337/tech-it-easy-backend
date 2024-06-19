@@ -24,6 +24,7 @@ public class TelevisionMapper {
         t.setAmbiLight(televisionInputDto.getAmbiLight());
         t.setOriginalStock(televisionInputDto.getOriginalStock());
         t.setSold(televisionInputDto.getSold());
+        t.setRemoteController(t.getRemoteController());
         return t;
     }
 
