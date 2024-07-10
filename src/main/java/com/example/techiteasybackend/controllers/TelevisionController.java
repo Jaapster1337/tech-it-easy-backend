@@ -4,17 +4,13 @@ import com.example.techiteasybackend.dto.input.IdInputDto;
 import com.example.techiteasybackend.dto.input.TelevisionInputDto;
 import com.example.techiteasybackend.dto.output.TelevisionOutputDto;
 import com.example.techiteasybackend.exceptions.RecordNotFoundException;
-import com.example.techiteasybackend.models.Television;
 import com.example.techiteasybackend.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
